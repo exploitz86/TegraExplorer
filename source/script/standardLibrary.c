@@ -46,6 +46,19 @@ ClassFunction(stdIf) {
 	return ret;
 }
 
+// Takes [int]. Returns empty.
+ClassFunction(stdSleep)
+{
+	s64 value = getIntValue(args[0]);
+
+	if (value)
+	{
+		msleep(value);
+	}
+
+	return &emptyClass;
+}
+
 // Takes [function, function]. Returns empty. Works by evaling the first function and running the 2nd if true.
 ClassFunction(stdWhile) {
 	Variable_t* result = eval(args[0]->function.function.operations.data, args[0]->function.function.operations.count, 1);
@@ -399,6 +412,16 @@ ClassFunction(stdFileRead){
 	return copyVariableToPtr(v);
 }
 
+ClassFunction(stdFileReadSize) {
+	u32 fSize = 0;
+	u8* buff = sd_file_read(args[0]->string.value, &fSize);
+	if (buff == NULL) {
+		SCRIPT_FATAL_ERR("Failed to read file");
+	}
+
+	return newIntVariablePtr(fSize);
+}
+
 ClassFunction(stdFileWrite){
 	return newIntVariablePtr(sd_save_to_file(args[1]->solvedArray.vector.data, args[1]->solvedArray.vector.count, args[0]->string.value));	
 }
@@ -506,6 +529,7 @@ STUBBED(stdFileMove)
 STUBBED(stdLaunchPayload)
 STUBBED(stdFileWrite)
 STUBBED(stdFileRead)
+STUBBED(stdFileReadSize)
 STUBBED(stdCombinePaths)
 STUBBED(stdEmmcFileWrite)
 STUBBED(stdEmmcFileRead)
@@ -555,6 +579,7 @@ ClassFunctionTableEntry_t standardFunctionDefenitions[] = {
 	{"menu", stdMenuFull, 3, menuArgsStd},
 	{"menu", stdMenuFull, 2, menuArgsStd},
 	{"power", stdPower, 1, threeIntsStd},
+	{"sleep", stdSleep, 1, threeIntsStd},
 
 	// System
 	{"mountsys", stdMountSysmmc, 1, twoStringArgStd},
@@ -579,6 +604,7 @@ ClassFunctionTableEntry_t standardFunctionDefenitions[] = {
 	{"movefile", stdFileMove, 2, twoStringArgStd},
 	{"delfile", stdFileDel, 1, twoStringArgStd},
 	{"readfile", stdFileRead, 1, twoStringArgStd},
+	{"getfilesize", stdFileReadSize, 1, twoStringArgStd},
 	{"writefile", stdFileWrite, 2, oneStringOneByteArrayStd},
 	
 	// 	Utils
