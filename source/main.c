@@ -291,32 +291,35 @@ void ipl_main()
 	_show_errors();
 	gfx_clear_grey(0x1B);
 
-	WPRINTF("          _                                   ");
-	WPRINTF("  ____ _ (_)____                              ");
-	WPRINTF(" / __ `// // __ \\                             ");
-	WPRINTF("/ /_/ // // /_/ /                             ");
-	WPRINTF("\\__,_//_/ \\____/    _  __         __          ");
-	WPRINTF("   _____ _      __ (_)/ /_ _____ / /_         ");
-	WPRINTF("  / ___/| | /| / // // __// ___// __ \\        ");
-	WPRINTF(" (__  ) | |/ |/ // // /_ / /__ / / / /        ");
-	WPRINTF("/____/  |__/|__//_/ \\__/ \\___//_/ /_/         ");
-	WPRINTF("                     __        __             ");
-	WPRINTF("  __  __ ____   ____/ /____ _ / /_ ___   _____");
-	WPRINTF(" / / / // __ \\ / __  // __ `// __// _ \\ / ___/");
-	WPRINTF("/ /_/ // /_/ // /_/ // /_/ // /_ /  __// /    ");
-	WPRINTF("\\__,_// .___/ \\__,_/ \\__,_/ \\__/ \\___//_/     ");
-	WPRINTF("     /_/                                      ");
-	usleep(1000000); // Display the text for a second
+	WPRINTF("                                                           ");
+	WPRINTF("   _____          _ __       __    ____  __          __   ");
+	WPRINTF("  / ___/      __ (_) /______/ /_  / __ )/ /___ _____/ /__ ");
+	WPRINTF("  \\__ \\ | /| / / / / __/ ___/ __ \\/ __  / / __ `/ __  / _ \\");
+	WPRINTF(" ___/ / |/ |/ / / / /_/ /__/ / / / /_/ / / /_/ / /_/ /  __/");
+	WPRINTF("/____/|__/|__/_/_/\\__/\\___/_/ /_/_____/_/\\__,_/\\__,_/\\___/ ");
+	WPRINTF("                                                           ");
+	WPRINTF("                                    .:^                    ");
+	WPRINTF("             ^                     /   :                   ");
+	WPRINTF("'`.        /;/                    /    /                   ");
+	WPRINTF("\\  \\      /;/                    /    /                   ");
+	WPRINTF(" \\\\ \\    /;/                    /  ///                    ");
+	WPRINTF("  \\\\ \\  /;/                    /  ///                     ");
+	WPRINTF("   \\  \\/_/____________________/    /                      ");
+	WPRINTF("    `/                         \\  /                       ");
+	WPRINTF("    {  o                   o  }'                        ");
+	WPRINTF("     \\_________________________/                          ");
+	WPRINTF("                                                           ");
+	usleep(3000000); // Display the text for 3 seconds
 
 	if (!h_cfg.errors) {
-		easy_rename("atmosphere/fusee-secondary.bin.aio", "atmosphere/fusee-secondary.bin");
-		easy_rename("sept/payload.bin.aio", "sept/payload.bin");
-		easy_rename("atmosphere/stratosphere.romfs.aio", "atmosphere/stratosphere.romfs");
-		easy_rename("atmosphere/package3.aio", "atmosphere/package3");
+		easy_rename("atmosphere/fusee-secondary.bin.sb", "atmosphere/fusee-secondary.bin");
+		easy_rename("sept/payload.bin.sb", "sept/payload.bin");
+		easy_rename("atmosphere/stratosphere.romfs.sb", "atmosphere/stratosphere.romfs");
+		easy_rename("atmosphere/package3.sb", "atmosphere/package3");
 
 		// If the console is a patched or Mariko unit
 		if (h_cfg.t210b01 || h_cfg.rcm_patched) {
-			easy_rename("payload.bin.aio", "payload.bin");
+			easy_rename("payload.bin.sb", "payload.bin");
 			power_set_state(POWER_OFF_REBOOT);
 		}
 
